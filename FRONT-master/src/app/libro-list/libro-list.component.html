@@ -1,0 +1,32 @@
+  
+    <div class="row">
+       <div *ngFor="let libro of libros" class="col-md-6 col-xl-3">
+          <div class="card m-b-30">
+             <div class="card-body row">
+                <div class="col-6 card-title align-self-center mb-0">
+                   <h5>ID:</h5>
+                   <h5>{{libro?.id}} </h5>
+                   <h5>TITULO:</h5>
+                   <h5>{{libro?.titulo}}</h5>
+                   <h5> Edicion:</h5>
+                   <h5>{{libro?.edicion}}</h5>
+                   <h5>IDAUTOR:</h5>
+                   <h5>{{libro?.autor.nombre}}</h5>
+                   <h5>CATEGORIA:</h5>
+                   <h5>{{libro?.categoria.id}}-{{libro?.categoria.descripcion}}</h5>
+                </div>
+             </div>
+             <ul class="list-group list-group-flush"></ul>
+             <div class="card-body">
+                <div class="float-right btn-group btn-group-sm">
+                   <a (click)="onOpenModal(libro, 'edit')" class="btn btn-primary tooltips" data-placement="top"
+                      data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                   <a (click)="onOpenModal(libro, 'delete')" class="btn btn-secondary tooltips" data-placement="top"
+                      data-original-title="Delete"><i class="fa fa-times"></i></a>
+                   <a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
+                      data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
