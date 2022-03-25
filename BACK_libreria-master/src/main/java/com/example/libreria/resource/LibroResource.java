@@ -5,7 +5,6 @@ import com.example.libreria.services.LibroServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +16,8 @@ public class LibroResource {
     private LibroServices libroServices;
 
 
-
-//    public LibroResource(LibroServices libroServices){
-//        this.libroServices = libroServices;
-//    }
+ public LibroResource(LibroServices libroServices){
+       this.libroServices = libroServices; }
 
     @GetMapping("/all")
     public ResponseEntity<List<Libro>> getAllLibros(){
@@ -37,13 +34,13 @@ public class LibroResource {
         Libro newLibro = libroServices.addLibro(libro);
         return new ResponseEntity<>(newLibro, HttpStatus.CREATED);
     }
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Libro> updateLibro(@RequestBody Libro libro, Long id){
-        Libro updateLibro = libroServices.updateLibro(libro, id);
+    @PutMapping("/update")
+    public ResponseEntity<Libro> updateLibro(@RequestBody Libro libro){
+        Libro updateLibro = libroServices.updateLibro(libro, libro.getId());
         return new ResponseEntity<>(updateLibro, HttpStatus.OK);
     }
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Libro> deleteLibro(@PathVariable("id") int id){
+    public ResponseEntity<Libro> deleteLibro(@PathVariable("id") Long id){
         libroServices.deleteLibro(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

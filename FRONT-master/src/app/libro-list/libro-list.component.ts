@@ -4,6 +4,9 @@ import { LibroService} from '../libro-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { AutorService } from '../autor-service.service';
+import { CategoriaService } from '../categoria-service.service';
+import { Autor } from 'src/classes/autor';
+import { Categoria } from 'src/classes/categoria';
 
 
 @Component({
@@ -16,15 +19,53 @@ export class LibroListComponent implements OnInit {
   libros: Libro[];
   updatelibro: Libro;
   deletelibro: Libro;
-  autores= []
+  autores= [];
+  categorias= [];
   
-  constructor(private libroService: LibroService, private autorService: AutorService) { }
+  constructor(private libroService: LibroService, private autorService: AutorService, private categoriaService: CategoriaService) { 
+    this.updatelibro = {
+      id: null,
+      titulo: "",
+      edicion: null,
+      autor: {
+        dni: "",
+        nombre: "",
+        apellido1: "",
+        apellido2: "",
+        telefono: "",
+        email: ""
+      },
+      categoria: {
+        id: null,
+        descripcion: ""
+      }
+    }   
+    this.deletelibro = {
+      id: null,
+      titulo: "",
+      edicion: null,
+      autor: {
+        dni: "",
+        nombre: "",
+        apellido1: "",
+        apellido2: "",
+        telefono: "",
+        email: ""
+      },
+      categoria: {
+        id: null,
+        descripcion: ""
+      }
+    }  
+   
+  }
 
   ngOnInit(): void {
     this.libroService.findAll().subscribe(data => {
       this.libros = data;
     });
     this.getAutor()
+    this.getCategoria()
   }
 
   public getLibros(): void {
@@ -39,18 +80,21 @@ export class LibroListComponent implements OnInit {
     );
   }
   public AddLibro(addForm: NgForm): void {
+    var libro = new Libro;
+    console.log(addForm);
+    libro.id = null;
+    libro.titulo = addForm.form.value.titulo;
+    libro.edicion = addForm.form.value.edicion;
+    libro.categoria = new Categoria;
+    libro.categoria.id = addForm.form.value.categoria;
+    libro.autor = new Autor;
+    libro.autor.dni = addForm.form.value.idautor;
+
+
+
     document.getElementById('add-libro-form')?.click();
-    this.libroService.addLibro(addForm.value).subscribe(
-      (response: Libro) => {
-        console.log(response);
-        this.getLibros();
-        addForm.reset();
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-        addForm.reset();
-      }
-    );
+
+    console.log('aaaaaaqa', libro);
   }
   public onUpdateLibro(libro: Libro): void {
     console.log('libroedit', libro);
@@ -76,15 +120,30 @@ export class LibroListComponent implements OnInit {
       }
     );
   }
+  public getCategoria(): void{
+    this.categoriaService.findAll().subscribe(categorias=>{
+      console.log(categorias);
+      
+      categorias.forEach(categoria => {
+        this.categorias.push({ 
+        text: categoria.descripcion,
+        value: categoria})
+      });
+    })
+    console.log(this.categorias);
+  }
 
   public getAutor(): void{
     this.autorService.findAll().subscribe(autores=>{
+      console.log(autores);
+      
       autores.forEach(autor => {
         this.autores.push({ 
         text: autor.nombre,
-        value: autor.dni})
+        value: autor})
       });
     })
+    console.log(this.autores);
   }
   public onOpenModal(libro: Libro, mode: string): void {
     const container = document.getElementById('main-container');
@@ -96,7 +155,7 @@ export class LibroListComponent implements OnInit {
       button.setAttribute('data-target', '#addLibroModal');
     }
     if (mode === 'edit') {
-      this.deletelibro = libro;
+      this.updatelibro = libro;
       button.setAttribute('data-target', '#updateLibroModal');
     }
     if (mode === 'delete') {

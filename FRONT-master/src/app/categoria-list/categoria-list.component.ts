@@ -13,8 +13,8 @@ export class CategoriaListComponent implements OnInit {
   categorias: Categoria[];
   updatecategoria:Categoria;
   deletecategoria:Categoria;
-  
-  constructor(private categoriaService: CategoriaService) { }
+  constructor(private categoriaService: CategoriaService) {
+  }
 
   ngOnInit(): void {
     this.categoriaService.findAll().subscribe(data =>{
@@ -70,7 +70,7 @@ export class CategoriaListComponent implements OnInit {
         alert(error.message);
       }
     );
-  }
+    }
 
   public onOpenModal(categoria: Categoria, mode: string): void {
     const container = document.getElementById('main-container');

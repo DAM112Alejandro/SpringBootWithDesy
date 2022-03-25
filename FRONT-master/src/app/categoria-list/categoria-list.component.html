@@ -29,13 +29,13 @@
 
 
 <!--Update Categoria-->
-    <div class="modal fade" id="updateCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="AutorEditModalLabel"
+    <div class="modal fade" id="updateCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="editCategoriaModalLabel"
         aria-hidden="true" *ngIf="updatecategoria">
 
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateAutorModalLabel">Edit Categoria {{updatecategoria?.descripcion}}
+                    <h5 class="modal-title" id="editCategoriaModalLabel">Edit Categoria {{updatecategoria?.descripcion}}
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -45,16 +45,10 @@
                     <form #editForm="ngForm">
                         <div class="form-group">
                             <label for="descripcion">Descripcion</label>
-                            <select name="descripcion" id="descripcion">
-                                <option *ngFor="let categoria of categorias">{{categoria.descripcion}}</option>
-                            </select>
-                        </div>
-                       <!--<div class="form-group">
-                            <label for="descripcion">Descripcion</label>
-                          <input type="text" [(ngModel)]="updatecategoria.descripcion" name="Descripcion"
-                                class="form-control" id="descripcion" aria-describedby="emailHelp"
-                                placeholder="Descripcion">
-                        </div>--> 
+                            <input type="text" [(ngModel)]="updatecategoria.descripcion" name="descripcion" class="form-control"
+                               id="descripcion" placeholder="descripcion">
+                         </div>
+       
                         <div class="modal-footer">
                             <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
                             <button (click)="onUpdateCategoria(updatecategoria)" data-dismiss="modal"

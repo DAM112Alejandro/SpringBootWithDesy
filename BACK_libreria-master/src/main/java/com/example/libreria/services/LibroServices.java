@@ -29,7 +29,7 @@ public class LibroServices {
         return libroRepo.findLibroById(id).orElseThrow(() -> new IllegalArgumentException(error));
     }
 
-    public void deleteLibro(int id){
+    public void deleteLibro(Long id){
         libroRepo.deleteLibroById(id);
     }
 
