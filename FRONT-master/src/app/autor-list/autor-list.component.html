@@ -1,17 +1,19 @@
+
 <div class="container" id="main-container">
-  
+   <a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
+   data-original-title="Edit"><i class="fa fa-pencil"></i>Add</a>
    <div class="row">
       <div *ngFor="let autor of autors" class="col-md-6 col-xl-3">
          <div class="card m-b-30">
             <div class="card-body row">
                <div class="col-6 card-title align-self-center mb-0">
-                  <h5 style="color: red;">Nombre Completo:</h5>
+                  <h5>Nombre Completo:</h5>
                   <h5>{{autor?.nombre}} {{autor?.apellido1}} {{autor?.apellido2}}</h5>
-                  <h5 style="color: red;">DNI:</h5>
+                  <h5>DNI:</h5>
                   <h5>{{autor?.dni}}</h5>
-                  <h5 style="color: red;"> Telefono:</h5>
+                  <h5> Telefono:</h5>
                   <h5>{{autor?.telefono}}</h5>
-                  <h5 style="color: red;">Email:</h5>
+                  <h5>Email:</h5>
                   <h5>{{autor?.email}}</h5>
                </div>
             </div>
@@ -22,16 +24,17 @@
                      data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
                   <a (click)="onOpenModal(autor, 'delete')" class="btn btn-secondary tooltips" data-placement="top"
                      data-original-title="Delete"><i class="fa fa-times"></i></a>
-                  <a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
-                     data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                  <!--<a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
+                     data-original-title="Edit"><i class="fa fa-pencil"></i>Add</a>-->
                </div>
+               
             </div>
          </div>
       </div>
    </div>
 
 
-
+<!--Update Autor-->
    <div class="modal fade" id="updateAutorModal" tabindex="-1" role="dialog" aria-labelledby="AutorEditModalLabel"
       aria-hidden="true" *ngIf="updateautor">
 
@@ -86,7 +89,7 @@
          </div>
       </div>
    </div>
-
+<!--Delete Autor-->
    <div class="modal fade" id="deleteAutorModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -107,8 +110,8 @@
             </div>
          </div>
       </div>
-
    </div>
+<!--Add Autor-->
    <div class="modal fade" id="addAutorModal" tabindex="-1" role="dialog"
       aria-labelledby="addAutorModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">

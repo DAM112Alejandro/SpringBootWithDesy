@@ -1,26 +1,26 @@
 <div class="container" id="main-container">
-
+    <a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
+        data-original-title="Edit"><i class="fa fa-pencil"></i>Add</a>
     <div class="row">
         <div *ngFor="let categoria of categorias" class="col-md-6 col-xl-3">
             <div class="card m-b-30">
                 <div class="card-body row">
                     <div class="col-6 card-title align-self-center mb-0">
-                        <h5 style="color: red;">ID:</h5>
+                        <h5>ID:</h5>
                         <h5>{{categoria?.id}} </h5>
-                        <h5 style="color: red;">Descripcion:</h5>
+                        <h5>Descripcion:</h5>
                         <h5>{{categoria.descripcion}}</h5>
-
                     </div>
                 </div>
                 <ul class="list-group list-group-flush"></ul>
                 <div class="card-body">
                     <div class="float-right btn-group btn-group-sm">
                         <a (click)="onOpenModal(categoria, 'edit')" class="btn btn-primary tooltips"
-                            data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                            data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i></a>
                         <a (click)="onOpenModal(categoria, 'delete')" class="btn btn-secondary tooltips"
                             data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
-                        <a (click)="onOpenModal(categoria, 'add')" class="btn btn-primary tooltips" data-placement="top"
-                            data-original-title="Edit"><i class="fa fa-pencil"></i>Añadir </a>
+                        <!--<a (click)="onOpenModal(categoria, 'add')" class="btn btn-primary tooltips" data-placement="top"
+                            data-original-title="Edit"><i class="fa fa-pencil"></i>Add</a>-->
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
     </div>
 
 
-
+<!--Update Categoria-->
     <div class="modal fade" id="updateCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="AutorEditModalLabel"
         aria-hidden="true" *ngIf="updatecategoria">
 
@@ -44,24 +44,28 @@
                 <div class="modal-body">
                     <form #editForm="ngForm">
                         <div class="form-group">
-                            <label for="name">Descripcion</label>
-                            <input type="text" [(ngModel)]="updatecategoria.descripcion" name="Descripcion"
+                            <label for="descripcion">Descripcion</label>
+                            <select name="descripcion" id="descripcion">
+                                <option *ngFor="let categoria of categorias">{{categoria.descripcion}}</option>
+                            </select>
+                        </div>
+                       <!--<div class="form-group">
+                            <label for="descripcion">Descripcion</label>
+                          <input type="text" [(ngModel)]="updatecategoria.descripcion" name="Descripcion"
                                 class="form-control" id="descripcion" aria-describedby="emailHelp"
                                 placeholder="Descripcion">
-                        </div>
+                        </div>--> 
                         <div class="modal-footer">
                             <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
                             <button (click)="onUpdateCategoria(updatecategoria)" data-dismiss="modal"
-                                class="btn btn-primary">Save
-                                changes</button>
+                                class="btn btn-primary">Save changes</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-
+<!--Delete Categoria-->
    <div class="modal fade" id="deleteCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -82,8 +86,8 @@
             </div>
          </div>
       </div>
-
    </div>
+   <!--Add Categoria-->
     <div class="modal fade" id="addCategoriaModal" tabindex="-1" role="dialog" aria-labelledby="addCategoriaModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -96,11 +100,6 @@
                 </div>
                 <div class="modal-body">
                     <form #addForm="ngForm" (ngSubmit)="AddCategoria(addForm)">
-                        <div class="form-group">
-                            <label for="id">ID</label>
-                            <input type="number" ngModel name="id" class="form-control" id="id" placeholder="id"
-                                >
-                        </div>
                         <div class="form-group">
                             <label for="descripcion">Descripcion</label>
                             <input type="text" ngModel name="descripcion" class="form-control" id="descripcion"

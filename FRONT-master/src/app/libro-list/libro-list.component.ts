@@ -3,6 +3,7 @@ import { Libro } from 'src/classes/libro';
 import { LibroService} from '../libro-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { AutorService } from '../autor-service.service';
 
 
 @Component({
@@ -15,12 +16,15 @@ export class LibroListComponent implements OnInit {
   libros: Libro[];
   updatelibro: Libro;
   deletelibro: Libro;
-  constructor(private libroService: LibroService) { }
+  autores= []
+  
+  constructor(private libroService: LibroService, private autorService: AutorService) { }
 
   ngOnInit(): void {
     this.libroService.findAll().subscribe(data => {
       this.libros = data;
     });
+    this.getAutor()
   }
 
   public getLibros(): void {
@@ -34,7 +38,7 @@ export class LibroListComponent implements OnInit {
       }
     );
   }
-  public AddAutor(addForm: NgForm): void {
+  public AddLibro(addForm: NgForm): void {
     document.getElementById('add-libro-form')?.click();
     this.libroService.addLibro(addForm.value).subscribe(
       (response: Libro) => {
@@ -61,7 +65,7 @@ export class LibroListComponent implements OnInit {
        }
      );
   }
-  public onDeleteAutor(libroid: number): void {
+  public onDeleteLibro(libroid: number): void {
     this.libroService.deleteLibro(libroid).subscribe(
       (response: Libro) => {
         console.log(response);
@@ -71,6 +75,16 @@ export class LibroListComponent implements OnInit {
         alert(error.message);
       }
     );
+  }
+
+  public getAutor(): void{
+    this.autorService.findAll().subscribe(autores=>{
+      autores.forEach(autor => {
+        this.autores.push({ 
+        text: autor.nombre,
+        value: autor.dni})
+      });
+    })
   }
   public onOpenModal(libro: Libro, mode: string): void {
     const container = document.getElementById('main-container');
