@@ -1,15 +1,16 @@
-<nav class="navegacion">
-   <ul class="menu">
-      <li><a routerLink="/autor/all">Autores</a></li>
-      <li><a routerLink="/categoria/all">Categorias</a></li>
-      <li><a routerLink="/libro/all">Libros</a></li>
-      <li style="float:right"><a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
-         data-original-title="Edit"><i class="fa fa-pencil"></i>Add</a></li>
-   </ul>
-</nav>
+<header>    
+   <ul>
+       <li id="Libro">Autores</li>
+       <form class="form-inline my-2 my-lg-0">
+         <input  style="float:right"   type="search" (ngModelChange)="searchEmployees(key.value)" #key="ngModel" ngModel
+          name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search autores..." required>
+      </form>
+       <li style="float:right"><a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
+         data-original-title="Edit"><i class="fa fa-pencil"></i>Add Autor</a></li>
+    </ul>
+</header> 
 <div class="container" id="main-container">
-   <!--<a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
-   data-original-title="Edit"><i class="fa fa-pencil"></i>Add</a>-->
+   
    <div class="row">
       <div *ngFor="let autor of autors" class="col-md-6 col-xl-3">
          <div class="card m-b-30">

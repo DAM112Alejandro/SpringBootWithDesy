@@ -99,5 +99,22 @@ export class AutorListComponent implements OnInit {
     container!.appendChild(button);
     button.click();
   }
+  public searchEmployees(key: string): void {
+    console.log(key);
+    const results: Autor[] = [];
+    for (const autor of this.autors) {
+      if (autor.nombre.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || autor.apellido1.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || autor.apellido2.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || autor.email.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || autor.telefono.toLocaleLowerCase().indexOf(key.toLocaleLowerCase()) !==-1) {
+        results.push(autor);
+      }
+    }
+    this.autors = results;
+    if (results.length === 0 || !key) {
+      this.getAutors();
+    }
   }
+}
  

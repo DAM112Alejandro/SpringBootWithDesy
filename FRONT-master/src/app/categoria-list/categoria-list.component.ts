@@ -92,5 +92,19 @@ export class CategoriaListComponent implements OnInit {
     container!.appendChild(button);
     button.click();
   }
+  public searchEmployees(key: string): void {
+    console.log(key);
+    const results: Categoria[] = [];
+    for (const categoria of this.categorias) {
+      if (categoria.descripcion.toLowerCase().indexOf(key.toLowerCase()) !== -1){
+        results.push(categoria);
+      }
+    }
+    this.categorias = results;
+    if (results.length === 0 || !key) {
+      this.getCategorias();
+    }
+  }
+  
   }
 

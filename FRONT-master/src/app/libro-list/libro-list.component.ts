@@ -167,5 +167,19 @@ export class LibroListComponent implements OnInit {
     container!.appendChild(button);
     button.click();
   }
-
+  public searchEmployees(key: string): void {
+    console.log(key);
+    
+    const results: Libro[] = [];
+    for (const libro of this.libros) {
+      if (libro.titulo.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || libro.categoria.descripcion.toLocaleLowerCase().indexOf(key.toLocaleLowerCase()) !==-1){
+        results.push(libro);
+      }
+    }
+    this.libros = results;
+    if (results.length === 0 || !key) {
+      this.getLibros();
+    }
+  }
 }
