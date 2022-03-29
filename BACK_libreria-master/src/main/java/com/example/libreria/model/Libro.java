@@ -1,9 +1,9 @@
 package com.example.libreria.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,11 +25,18 @@ public class Libro implements Serializable {
     @Column(name = "EDICION")
     private int edicion;
 
+
+    @Getter
+    @Setter
     @ManyToOne
-    @JoinColumn(name = "id_autor")
+    @JoinColumn(name = "id_Autor")
+    @Nullable
     private Autor autor;
 
-    @ManyToOne (cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_categoria")
+    @Getter
+    @Setter
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "id_Categoria")
+    @NotNull
     private Categoria categoria;
 }

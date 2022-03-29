@@ -9,6 +9,7 @@ import { Autor } from 'src/classes/autor';
 import { Categoria } from 'src/classes/categoria';
 
 
+
 @Component({
   selector: 'app-libro-list',
   templateUrl: './libro-list.component.html',
@@ -66,6 +67,7 @@ export class LibroListComponent implements OnInit {
     });
     this.getAutor()
     this.getCategoria()
+    
   }
 
   public getLibros(): void {
@@ -79,22 +81,21 @@ export class LibroListComponent implements OnInit {
       }
     );
   }
-  public AddLibro(addForm: NgForm): void {
-    var libro = new Libro;
-    console.log(addForm);
-    libro.id = null;
-    libro.titulo = addForm.form.value.titulo;
-    libro.edicion = addForm.form.value.edicion;
-    libro.categoria = new Categoria;
-    libro.categoria.id = addForm.form.value.categoria;
-    libro.autor = new Autor;
-    libro.autor.dni = addForm.form.value.idautor;
-
-
-
-    document.getElementById('add-libro-form')?.click();
-
-    console.log('aaaaaaqa', libro);
+  public onAddLibro(addForm: NgForm): void {  
+  document.getElementById('add-libro-form').click();
+  this.libroService.addLibro(this.updatelibro).subscribe(
+      (response: Libro) => {
+        console.log(response);
+        this.getLibros();
+        addForm.reset();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+        addForm.reset();
+      }
+    );  
+    
+    
   }
   public onUpdateLibro(libro: Libro): void {
     console.log('libroedit', libro);
@@ -123,14 +124,15 @@ export class LibroListComponent implements OnInit {
   public getCategoria(): void{
     this.categoriaService.findAll().subscribe(categorias=>{
       console.log(categorias);
-      
-      categorias.forEach(categoria => {
-        this.categorias.push({ 
-        text: categoria.descripcion,
-        value: categoria})
-      });
+      categorias.forEach(categoria =>{
+        this.categorias.push({
+          text: categoria.descripcion,
+          value: categoria.id
+        });
+      })
     })
     console.log(this.categorias);
+    
   }
 
   public getAutor(): void{
@@ -140,7 +142,7 @@ export class LibroListComponent implements OnInit {
       autores.forEach(autor => {
         this.autores.push({ 
         text: autor.nombre,
-        value: autor})
+        value: autor.dni})
       });
     })
     console.log(this.autores);

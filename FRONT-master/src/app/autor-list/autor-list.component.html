@@ -1,13 +1,21 @@
-
+<nav class="navegacion">
+   <ul class="menu">
+      <li><a routerLink="/autor/all">Autores</a></li>
+      <li><a routerLink="/categoria/all">Categorias</a></li>
+      <li><a routerLink="/libro/all">Libros</a></li>
+      <li style="float:right"><a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
+         data-original-title="Edit"><i class="fa fa-pencil"></i>Add</a></li>
+   </ul>
+</nav>
 <div class="container" id="main-container">
-   <a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
-   data-original-title="Edit"><i class="fa fa-pencil"></i>Add</a>
+   <!--<a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
+   data-original-title="Edit"><i class="fa fa-pencil"></i>Add</a>-->
    <div class="row">
       <div *ngFor="let autor of autors" class="col-md-6 col-xl-3">
          <div class="card m-b-30">
             <div class="card-body row">
                <div class="col-6 card-title align-self-center mb-0">
-                  <h5>Nombre Completo:</h5>
+                  <h5>Nombre:</h5>
                   <h5>{{autor?.nombre}} {{autor?.apellido1}} {{autor?.apellido2}}</h5>
                   <h5>DNI:</h5>
                   <h5>{{autor?.dni}}</h5>
@@ -24,10 +32,7 @@
                      data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
                   <a (click)="onOpenModal(autor, 'delete')" class="btn btn-secondary tooltips" data-placement="top"
                      data-original-title="Delete"><i class="fa fa-times"></i></a>
-                  <!--<a (click)="onOpenModal(null, 'add')" class="btn btn-primary tooltips" data-placement="top"
-                     data-original-title="Edit"><i class="fa fa-pencil"></i>Add</a>-->
                </div>
-               
             </div>
          </div>
       </div>
@@ -37,7 +42,6 @@
 <!--Update Autor-->
    <div class="modal fade" id="updateAutorModal" tabindex="-1" role="dialog" aria-labelledby="AutorEditModalLabel"
       aria-hidden="true" *ngIf="updateautor">
-
       <div class="modal-dialog" role="document">
          <div class="modal-content">
             <div class="modal-header">

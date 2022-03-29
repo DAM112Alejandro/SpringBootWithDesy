@@ -31,12 +31,12 @@ public class LibroResource {
     }
     @PostMapping("/add")
     public ResponseEntity<Libro> addLibro(@RequestBody Libro libro){
-        Libro newLibro = libroServices.addLibro(libro);
-        return new ResponseEntity<>(newLibro, HttpStatus.CREATED);
+     Libro newLibro= libroServices.addLibro(libro);
+     return new ResponseEntity<>(newLibro, HttpStatus.CREATED);
     }
     @PutMapping("/update")
     public ResponseEntity<Libro> updateLibro(@RequestBody Libro libro){
-        Libro updateLibro = libroServices.updateLibro(libro, libro.getId());
+           Libro updateLibro = libroServices.updateLibro(libro, libro.getId());
         return new ResponseEntity<>(updateLibro, HttpStatus.OK);
     }
     @DeleteMapping("/delete/{id}")
