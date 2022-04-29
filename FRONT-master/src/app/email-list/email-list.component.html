@@ -1,0 +1,33 @@
+    <header>
+    <p id="title">Contacta<b>te</b></p>
+</header><div id="main-container">
+    <div class="flex flex-wrap ml-5">
+      
+        <form #sendForm="ngForm" (ngSubmit)="sendEmail(sendForm)">
+            <br>
+            <desy-label for="asunto">Asunto</desy-label>
+            <desy-input id="asunto" [classes]="'w-100'" ngModel name="asunto" placeholder="asunto...">
+            </desy-input>
+            <desy-label for="mensaje">Mensaje</desy-label>
+            <desy-textarea id="mensaje"   ngModel  name="mensaje" placeholder="Mensaje...">
+            </desy-textarea>
+            <desy-label for="email">Email</desy-label>
+            <desy-input [type]="'email'" id="email" [classes]="'w-100'" ngModel name="email" [required]="'true'"
+                placeholder="Email...">
+            </desy-input>
+            <desy-file-upload name="archivo" id="archivo" [(ngModel)] = "fileArchivo" (onChange)="mostrarAlgo()"></desy-file-upload>
+            <!-- /input -->
+
+            <div class="flex flex-wrap gap-sm w-full justify-between">
+                <div class="mt-sm">
+
+
+                    <!-- button -->
+                    <desy-button [disabled]="sendForm.invalid" [classes]="'btn btn-primary'" html="Enviar Mensaje">
+                    </desy-button><!-- /button -->
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>

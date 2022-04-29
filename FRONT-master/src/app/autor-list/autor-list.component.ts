@@ -5,14 +5,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 
 
-
 @Component({
   selector: 'app-autor-list',
   templateUrl: './autor-list.component.html',
   styleUrls: ['./autor-list.component.css']
 })
 export class AutorListComponent implements OnInit {
-
+  public page: number;
   autors: Autor[];
   updateautor:Autor;
   deleteautor:Autor;
@@ -99,15 +98,13 @@ export class AutorListComponent implements OnInit {
     container!.appendChild(button);
     button.click();
   }
-  public searchEmployees(key: string): void {
+  public searchAutores(key: string): void {
     console.log(key);
     const results: Autor[] = [];
     for (const autor of this.autors) {
       if (autor.nombre.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || autor.apellido1.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || autor.apellido2.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || autor.email.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || autor.telefono.toLocaleLowerCase().indexOf(key.toLocaleLowerCase()) !==-1) {
+      || autor.dni.toLowerCase().indexOf(key.toLowerCase())!==-1
+      || autor.apellido1.toLowerCase().indexOf(key.toLowerCase())!==-1 ) {
         results.push(autor);
       }
     }
@@ -116,5 +113,61 @@ export class AutorListComponent implements OnInit {
       this.getAutors();
     }
   }
+  public searchAutoresbyNombre(KeyNombre: string): void {
+    console.log(KeyNombre);
+    const results: Autor[] = [];
+    for (const autor of this.autors) {
+      if (autor.nombre.toLowerCase().indexOf(KeyNombre.toLowerCase()) !== -1
+      || autor.apellido1.toLowerCase().indexOf(KeyNombre.toLowerCase())!==-1 ) {
+        results.push(autor);
+      }
+    }
+    this.autors = results;
+    if (results.length === 0 || !KeyNombre) {
+      this.getAutors();
+    }
+  }
+  public searchAutoresbyDni(KeyDni: string): void {
+    console.log(KeyDni);
+    const results: Autor[] = [];
+    for (const autor of this.autors) {
+      if (autor.dni.toLowerCase().indexOf(KeyDni.toLowerCase()) !== -1) {
+        results.push(autor);
+      }
+    }
+    this.autors = results;
+    if (results.length === 0 || !KeyDni) {
+      this.getAutors();
+    }
+  }
+  public searchAutoresbyTelfono(KeyTel: string): void {
+    console.log(KeyTel);
+    const results: Autor[] = [];
+    for (const autor of this.autors) {
+      if (autor.telefono.toLowerCase().indexOf(KeyTel.toLowerCase()) !== -1 ) {
+        results.push(autor);
+      }
+    }
+    this.autors = results;
+    if (results.length === 0 || !KeyTel) {
+      this.getAutors();
+    }
+  }
+  public searchAutoresbyEmail(KeyEM: string): void {
+    console.log(KeyEM);
+    const results: Autor[] = [];
+    for (const autor of this.autors) {
+      if (autor.email.toLowerCase().indexOf(KeyEM.toLowerCase()) !== -1
+      || autor.apellido1.toLowerCase().indexOf(KeyEM.toLowerCase())!==-1 ) {
+        results.push(autor);
+      }
+    }
+    this.autors = results;
+    if (results.length === 0 || !KeyEM) {
+      this.getAutors();
+    }
+  }
 }
+
+
  

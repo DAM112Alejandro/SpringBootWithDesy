@@ -1,5 +1,6 @@
 package com.example.libreria.resource;
 
+
 import com.example.libreria.model.Libro;
 import com.example.libreria.services.LibroServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +15,16 @@ import java.util.List;
 public class LibroResource {
     @Autowired
     private LibroServices libroServices;
+  
 
 
- public LibroResource(LibroServices libroServices){
+    public LibroResource(LibroServices libroServices){
        this.libroServices = libroServices; }
 
     @GetMapping("/all")
     public ResponseEntity<List<Libro>> getAllLibros(){
         List<Libro> libros = libroServices.findAllLibros();
-        return new ResponseEntity<List<Libro>>(libros, HttpStatus.OK);
+        return new ResponseEntity<  >(libros, HttpStatus.OK);
     }
     @GetMapping("getById/{id}")
     public ResponseEntity<Libro> getLibroById(@PathVariable("id") Long id){
@@ -31,12 +33,12 @@ public class LibroResource {
     }
     @PostMapping("/add")
     public ResponseEntity<Libro> addLibro(@RequestBody Libro libro){
-     Libro newLibro= libroServices.addLibro(libro);
+             Libro newLibro= libroServices.addLibro(libro);
      return new ResponseEntity<>(newLibro, HttpStatus.CREATED);
     }
     @PutMapping("/update")
     public ResponseEntity<Libro> updateLibro(@RequestBody Libro libro){
-           Libro updateLibro = libroServices.updateLibro(libro, libro.getId());
+           Libro updateLibro = libroServices.updateLibro(libro);
         return new ResponseEntity<>(updateLibro, HttpStatus.OK);
     }
     @DeleteMapping("/delete/{id}")

@@ -1,9 +1,17 @@
 #Libro{
   font-size:60px ;
+  font-family: Arial, Helvetica, sans-serif;
 }
 li{
   display: inline;
 }
-
+#añadir{
+  float: right;
+  padding-top: 8px;
+  padding-left: 5px;
   
+}
+#pto_css{
+  width: 300px !important;
+}
 

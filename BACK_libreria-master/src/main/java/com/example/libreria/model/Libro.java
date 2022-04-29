@@ -29,14 +29,55 @@ public class Libro implements Serializable {
     @Getter
     @Setter
     @ManyToOne
-    @JoinColumn(name = "id_Autor")
+    @JoinColumn(name = "ID_AUTOR")
     @Nullable
     private Autor autor;
 
     @Getter
     @Setter
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "id_Categoria")
+    @JoinColumn(name = "ID_CATEGORIA")
     @NotNull
     private Categoria categoria;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public int getEdicion() {
+		return edicion;
+	}
+
+	public void setEdicion(int edicion) {
+		this.edicion = edicion;
+	}
+
+	public Autor getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Autor autor) {
+		this.autor = autor;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+    
 }

@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class AutorService {
-  [x: string]: any;
+  
   private autorsUrl: string;
 
   constructor(private http: HttpClient) {

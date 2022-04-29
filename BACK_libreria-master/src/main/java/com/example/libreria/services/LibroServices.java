@@ -2,6 +2,7 @@ package com.example.libreria.services;
 
 import com.example.libreria.model.Libro;
 import com.example.libreria.repo.LibroRepo;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,13 @@ public class LibroServices {
     @Autowired
     private  LibroRepo libroRepo;
     private final String error = "No se ha encontrado al Libro";
+    private CategoriaServices categoriaService;
 
-    public Libro addLibro(Libro libro){
+    public LibroServices(CategoriaServices categoriaService) {
+        this.categoriaService = categoriaService;
+    }
+
+    public Libro    addLibro(Libro libro){
         return libroRepo.save(libro);
     }
 
@@ -33,10 +39,15 @@ public class LibroServices {
         libroRepo.deleteLibroById(id);
     }
 
-    public Libro updateLibro(Libro libro, Long id){
-        if (libroRepo.findLibroById(id).isPresent() == true){
+    public Libro updateLibro(@NotNull Libro libro){
+        if (libroRepo.findLibroById(libro.getId()).isPresent()){
+            for (int i=0; i<categoriaService.findAllCategorias().size(); i++){
+                if(categoriaService.findAllCategorias().get(i).getId()==libro.getCategoria().getId()){
+                    libro.setCategoria(categoriaService.findAllCategorias().get(i));
+                }
+            }
+               // libro.setCategoria(categoriaService.findCategoriaById(libro.getCategoria().getId()));
             return libroRepo.save(libro);
-            
         }else{
             throw new IllegalArgumentException("El libro no existe");
         }

@@ -10,18 +10,22 @@ import { Categoria } from 'src/classes/categoria';
 
 
 
+
+
 @Component({
   selector: 'app-libro-list',
   templateUrl: './libro-list.component.html',
   styleUrls: ['./libro-list.component.css']
 })
 export class LibroListComponent implements OnInit {
-
+  public pages:number;
   libros: Libro[];
   updatelibro: Libro;
   deletelibro: Libro;
   autores= [];
-  categorias= [];
+  autors: Autor[];
+  categors: Categoria[];
+  categorias=[];
   
   constructor(private libroService: LibroService, private autorService: AutorService, private categoriaService: CategoriaService) { 
     this.updatelibro = {
@@ -40,7 +44,7 @@ export class LibroListComponent implements OnInit {
         id: null,
         descripcion: ""
       }
-    }   
+    }
     this.deletelibro = {
       id: null,
       titulo: "",
@@ -58,7 +62,7 @@ export class LibroListComponent implements OnInit {
         descripcion: ""
       }
     }  
-   
+  
   }
 
   ngOnInit(): void {
@@ -81,17 +85,17 @@ export class LibroListComponent implements OnInit {
       }
     );
   }
-  public onAddLibro(addForm: NgForm): void {  
-  document.getElementById('add-libro-form').click();
-  this.libroService.addLibro(this.updatelibro).subscribe(
+  public onAddLibro(libro: Libro): void {  
+  document.getElementById('add-libro-form')?.click();
+  this.libroService.addLibro(libro).subscribe(
       (response: Libro) => {
         console.log(response);
         this.getLibros();
-        addForm.reset();
+        
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
-        addForm.reset();
+        
       }
     );  
     
@@ -99,16 +103,23 @@ export class LibroListComponent implements OnInit {
   }
   public onUpdateLibro(libro: Libro): void {
     console.log('libroedit', libro);
-    
-     this.libroService.updateLibro(libro).subscribe(
-       (response: Libro) => {
-       console.log(response);
-       this.getLibros();
+    console.log('libroedit', this.categorias);
+    var cat = this.categorias.find(categoria => categoria.value = libro.categoria.id);
+    console.log('autores', this.autores.find(autor=> autor.value = libro.autor.dni));
+    console.log('libroedit1', this.categorias.find(categoria => categoria.value = libro.categoria.id));
+    console.log('libroedit2', this.categorias.find(categoria => categoria = libro.categoria.id));
+    console.log('libroedit3', this.categorias.filter(categoria => categoria.value = libro.categoria.id));
+    console.log('libroedit4', this.categorias.filter(categoria => categoria= libro.categoria.id));
+    console.log('libroedit5', cat);
+    this.libroService.updateLibro(libro).subscribe(
+      (response: Libro) =>{
+        console.log(response);
+        this.getLibros
       },
-       (error: HttpErrorResponse) => {
-         alert(error.message);
-       }
-     );
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
   public onDeleteLibro(libroid: number): void {
     this.libroService.deleteLibro(libroid).subscribe(
@@ -121,31 +132,33 @@ export class LibroListComponent implements OnInit {
       }
     );
   }
-  public getCategoria(): void{
-    this.categoriaService.findAll().subscribe(categorias=>{
-      console.log(categorias);
-      categorias.forEach(categoria =>{
-        this.categorias.push({
-          text: categoria.descripcion,
-          value: categoria.id
-        });
-      })
-    })
-    console.log(this.categorias);
+public getCategoria(): void{
+  this.categoriaService.findAll().subscribe(categorias=>{
+    console.log('getcategorias',categorias);
     
-  }
+    categorias.forEach(categoria => {
+      this.categorias.push({ 
+      text: categoria.descripcion,
+      value: categoria.id})
+      this.categors=categorias;
+    });
+    this.categors=categorias
+  })
+  console.log('getcategorias2',this.categorias);
+}
 
   public getAutor(): void{
     this.autorService.findAll().subscribe(autores=>{
-      console.log(autores);
+      console.log('getautores',autores);
       
       autores.forEach(autor => {
         this.autores.push({ 
-        text: autor.nombre,
+        text: autor.nombre+" "+autor.apellido1,
         value: autor.dni})
+        this.autors=autores;
       });
     })
-    console.log(this.autores);
+    console.log('getautores2',this.autores);
   }
   public onOpenModal(libro: Libro, mode: string): void {
     const container = document.getElementById('main-container');
@@ -169,11 +182,10 @@ export class LibroListComponent implements OnInit {
   }
   public searchEmployees(key: string): void {
     console.log(key);
-    
     const results: Libro[] = [];
     for (const libro of this.libros) {
       if (libro.titulo.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || libro.categoria.descripcion.toLocaleLowerCase().indexOf(key.toLocaleLowerCase()) !==-1){
+      || libro.categoria.descripcion.toLowerCase().indexOf(key.toLowerCase()) !== -1)  {
         results.push(libro);
       }
     }
@@ -181,5 +193,7 @@ export class LibroListComponent implements OnInit {
     if (results.length === 0 || !key) {
       this.getLibros();
     }
+    console.log("hjg", results);
+    
   }
 }

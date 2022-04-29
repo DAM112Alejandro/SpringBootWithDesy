@@ -28,4 +28,5 @@ export class LibroService {
   public deleteLibro(id: number): Observable<Libro>{
     return this.http.delete<Libro>(`${this.librosUrl}/libro/delete/${id}`)
   }
+  
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Categoria } from 'src/classes/categoria';
-import { CategoriaService } from '../categoria-service.service';
+
+import * as categoriaServiceService from '../categoria-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { Categoria } from 'src/classes/categoria';
 
 @Component({
   selector: 'app-categoria-list',
@@ -10,10 +11,11 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./categoria-list.component.css']
 })
 export class CategoriaListComponent implements OnInit {
+  public pages: number;
   categorias: Categoria[];
   updatecategoria:Categoria;
   deletecategoria:Categoria;
-  constructor(private categoriaService: CategoriaService) {
+  constructor(private categoriaService: categoriaServiceService.CategoriaService) {
   }
 
   ngOnInit(): void {
