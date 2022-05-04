@@ -33,12 +33,13 @@ public class EmailService {
             mimeMessageHelper.setTo(email.getEmail());
             mimeMessageHelper.setSubject(email.getAsunto());
             mimeMessageHelper.setText(email.getMensaje());
-            
+            if(file!=null) {
             byte[] fichBytes = file.getBytes();
             
-            mimeMessageHelper.addAttachment("Adjunto.xlsx", new ByteArrayResource(fichBytes));
+            mimeMessageHelper.addAttachment(file.getOriginalFilename(), new ByteArrayResource(fichBytes));
+            }
             emailSender.send(mimeMessage);
-            System.out.println("Email sending complete.");
+            System.out.println("Email sending complete to "+email.getEmail());
         } catch (Exception e) {
             e.printStackTrace();
         }

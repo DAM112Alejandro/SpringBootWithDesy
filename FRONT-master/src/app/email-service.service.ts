@@ -15,7 +15,7 @@ export class EmailServiceService {
   constructor(private http: HttpClient) {
     this.emailUrl = environment.apiBaseUrl;
   }
-  public sendEmail(email: Email, fileArchivo: Blob): Observable<Email>{
+  public  sendEmail(email: Email, fileArchivo: Blob): Observable<Email>{
 
     const formData: FormData = new FormData();
 

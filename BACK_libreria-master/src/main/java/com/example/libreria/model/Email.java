@@ -1,6 +1,7 @@
 package com.example.libreria.model;
 
-import java.io.File;
+
+
 
 public class Email {
 	private String email;
@@ -9,8 +10,6 @@ public class Email {
 	
 	private String mensaje;
 	
-	private File file;
-
 	public String getEmail() {
 		return email;
 	}
