@@ -1,12 +1,15 @@
 package com.example.libreria.services;
 
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,6 +35,7 @@ public class EmailService {
             mimeMessageHelper.setFrom("testossot@gmail.com");
             mimeMessageHelper.setTo(email.getEmail());
             mimeMessageHelper.setSubject(email.getAsunto());
+            
             mimeMessageHelper.setText(email.getMensaje());
             if(file!=null) {
             byte[] fichBytes = file.getBytes();
@@ -44,7 +48,38 @@ public class EmailService {
             e.printStackTrace();
         }
     }
-	
+//	 @Scheduled( cron = "0 0/5 * * * ?")
+//	public void sendEmailAuto() {
+//		try {
+//			MimeMessage mimeMessage=emailSender.createMimeMessage();
+//			MimeMessageHelper mimeMessageHelper= new MimeMessageHelper(mimeMessage,false);
+//		
+//			mimeMessageHelper.setFrom("testossot@gmail.com");
+//			mimeMessageHelper.setTo("testossot@gmail.com");
+//			mimeMessageHelper.setSubject("Correo Automatico");
+//			mimeMessageHelper.setText("");
+//			emailSender.send(mimeMessage);
+//		} catch (MessagingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//	}
+	public void sendEmail() {
+		try {
+			MimeMessage mimeMessage=emailSender.createMimeMessage();
+			MimeMessageHelper mimeMessageHelper= new MimeMessageHelper(mimeMessage,false);
+		
+			mimeMessageHelper.setFrom("testossot@gmail.com");
+			mimeMessageHelper.setTo("testossot@gmail.com");
+			mimeMessageHelper.setSubject("Correo Automatico");
+			mimeMessageHelper.setText("");
+			emailSender.send(mimeMessage);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 		
 	}
 	
