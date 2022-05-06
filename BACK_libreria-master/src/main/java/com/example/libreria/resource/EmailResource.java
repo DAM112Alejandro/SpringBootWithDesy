@@ -64,7 +64,7 @@ public class EmailResource {
 		
 		Trigger t = TriggerBuilder.newTrigger().withIdentity("cronTrigger1", "group1")
 				.startNow()
-				.withSchedule(CronScheduleBuilder.cronSchedule("0 0/5 * * * ?"))
+				.withSchedule(CronScheduleBuilder.cronSchedule("0 0/1 * * * ?"))
 				.build();
 		Scheduler scheduler= new StdSchedulerFactory().getScheduler();
 		

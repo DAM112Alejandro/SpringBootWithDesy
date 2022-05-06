@@ -16,7 +16,7 @@ import org.quartz.JobExecutionException;
 public class Job1 implements Job {
 	public void sendEmail() {
 		Properties props = System.getProperties();
-		props.put("mail.smtp.host", "smtp.gmail.com"); // El servidor SMTP de Google
+		props.put("mail.smtp.host", /*"smtp-mail.outlook.com"*/"smtp.gmail.com"); // El servidor SMTP de Google
 		props.put("mail.smtp.user", "testossot@gmail.com");
 		props.put("mail.smtp.clave", "vztyucugdlyiudaf"); // La clave de la cuenta
 		props.put("mail.smtp.auth", "true"); // Usar autenticación mediante usuario y clave
@@ -27,7 +27,7 @@ public class Job1 implements Job {
 		MimeMessage message = new MimeMessage(session);
 		try {
 			message.setFrom(new InternetAddress("testossot@gmail.com"));
-			message.addRecipients(Message.RecipientType.TO, "testossot@gmail.com"); // Se podrían añadir varios de la
+			message.addRecipients(Message.RecipientType.TO, /*"mcarro@hiberus.com"*/"testossot@gmail.com"); // Se podrían añadir varios de la
 																					// misma manera
 			message.setSubject("Correo auto");
 			message.setText("");
